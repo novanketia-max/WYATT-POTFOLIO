@@ -1,0 +1,509 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OSCAR — Portfolio</title>
+
+<style>
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+/* ---------- BASE ---------- */
+body {
+  background: #0a0a0a;
+  color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ---------- NAV ---------- */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 18px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(10,10,10,.6);
+  z-index: 10;
+}
+
+nav h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: .5px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+}
+
+nav li {
+  font-size: .9rem;
+  opacity: .8;
+  cursor: pointer;
+}
+
+nav li:hover {
+  opacity: 1;
+}
+
+/* ---------- SECTIONS ---------- */
+section {
+  position: relative;
+  z-index: 2;
+  padding: 120px 8%;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero h2 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.hero span {
+  color: #60a5fa;
+}
+
+.hero p {
+  margin-top: 20px;
+  max-width: 520px;
+  color: #a1a1aa;
+  font-size: 1.05rem;
+}
+
+/* ---------- ABOUT ---------- */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+.about h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.about p {
+  color: #a1a1aa;
+  line-height: 1.6;
+}
+
+/* ---------- PROJECTS ---------- */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: rgba(255,255,255,.04);
+  border-radius: 18px;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+  transition: transform .4s ease, background .4s ease;
+}
+
+.card:hover {
+  transform: translateY(-12px);
+  background: rgba(255,255,255,.08);
+}
+
+.card h4 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: .9rem;
+  color: #a1a1aa;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  text-align: center;
+  padding: 40px 0;
+  font-size: .85rem;
+  color: #71717a;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+}.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+/* SKILLS */
+.skills {
+  display: grid;
+  gap: 16px;
+  max-width: 600px;
+}
+
+.skill span {
+  font-size: .9rem;
+}
+
+.bar {
+  height: 8px;
+  background: rgba(255,255,255,.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar div {
+  height: 100%;
+  background: linear-gradient(90deg, #60a5fa, #38bdf8);
+  width: 0;
+  transition: width 1.5s ease;
+}
+
+/* CONTACT */
+.contact-form {
+  display: grid;
+  gap: 14px;
+  max-width: 500px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255,255,255,.05);
+  color: white;
+}
+
+.contact-form button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #60a5fa;
+  color: black;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.resume-btn {
+  display: inline-block;
+  margin-top: 20px;
+  opacity: .8;
+}
+
+/* SCROLL REVEAL */
+section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s ease;
+}
+
+section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* ---------- RESPONSIVE FOUNDATION ---------- */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 1200px) {
+  html { font-size: 15px; }
+}
+
+@media (max-width: 900px) {
+  html { font-size: 14.5px; }
+}
+
+@media (max-width: 600px) {
+  html { font-size: 14px; }
+}
+
+/* Prevent overflow */
+body {
+  overflow-x: hidden;
+}
+
+/* ---------- NAV RESPONSIVE ---------- */
+nav {
+  padding: 14px 6%;
+}
+
+@media (max-width: 700px) {
+  nav ul {
+    display: none;
+  }
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  padding-top: 120px;
+}
+
+.hero h2 {
+  max-width: 12ch;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    height: auto;
+    padding: 140px 6% 80px;
+  }
+
+  .hero h2 {
+    font-size: 2.2rem;
+    line-height: 1.15;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+/* ---------- SECTIONS ---------- */
+section {
+  padding: clamp(80px, 12vw, 140px) 6%;
+}
+
+/* ---------- ABOUT ---------- */
+.about {
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .about {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ---------- PROJECTS ---------- */
+.projects {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.card {
+  padding: 20px;
+}
+
+/* ---------- SKILLS ---------- */
+.skills {
+  width: 100%;
+}
+
+.skill span {
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ---------- CONTACT ---------- */
+.contact-form input,
+.contact-form textarea {
+  font-size: 1rem;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  padding: 60px 6% 40px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<canvas id="web"></canvas>
+
+<nav>
+  <h1>OSCAR</h1>
+  <ul>
+    <li>Home</li>
+    <li>About</li>
+    <li>Projects</li>
+    <li>Contact</li>
+  </ul>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+</nav>
+
+<section class="hero">
+  <div>
+    <h2>Building <span>clean</span>,<br>modern web experiences.</h2>
+    <p>
+      I’m a developer focused on crafting high-quality interfaces,
+      interactive experiences, and scalable web applications.
+    </p>
+  </div>
+</section>
+
+<section class="about">
+  <div>
+    <h3>About Me</h3>
+    <p>
+      I specialize in modern web development using HTML, CSS, JavaScript,
+      and emerging technologies. I care deeply about performance, design
+      systems, and writing code that scales.
+    </p>
+  </div>
+  <div>
+    <h3>Skills</h3>
+    <p>
+      • HTML, CSS, JavaScript<br>
+      • Responsive Design<br>
+      • UI/UX Engineering<br>
+      • Web Animations<br>
+      • App & Web Architecture
+    </p>
+  </div>
+</section>
+
+<section>
+  <h3 style="font-size:2rem; margin-bottom:30px;">Selected Projects</h3>
+  <div class="projects">
+    <div class="card">
+      <h4>Social Media App</h4>
+      <p>A Facebook-style platform with modern UI and interactions.</p>
+    </div>
+    <div class="card">
+      <h4>AI Math Solver</h4>
+      <p>Advanced calculator with step-by-step reasoning.</p>
+    </div>
+    <div class="card">
+      <h4>Apple-Style Landing Page</h4>
+      <p>High-end product landing page with animated visuals.</p>
+    </div>
+  </div>
+</section>
+<section id="skills">
+  <h3 class="section-title">Skills</h3>
+  <div class="skills">
+    <div class="skill"><span>HTML</span><div class="bar"><div style="width:95%"></div></div></div>
+    <div class="skill"><span>CSS</span><div class="bar"><div style="width:90%"></div></div></div>
+    <div class="skill"><span>JavaScript</span><div class="bar"><div style="width:85%"></div></div></div>
+    <div class="skill"><span>UI/UX</span><div class="bar"><div style="width:80%"></div></div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <h3 class="section-title">Contact</h3>
+  <form class="contact-form">
+    <input placeholder="Your Name" required>
+    <input placeholder="Email" required>
+    <textarea placeholder="Message"></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+
+  <a class="resume-btn" href="#" download>⬇ Download Resume</a>
+</section>
+
+<footer>
+  © 2026 Your Name • All Rights Reserved
+</footer>
+
+<script>
+/* ---------- SPIDER WEB BACKGROUND ---------- */
+const canvas = document.getElementById("web");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+resize();
+addEventListener("resize", resize);
+
+const points = [];
+const COUNT = 90;
+
+for (let i = 0; i < COUNT; i++) {
+  points.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < points.length; i++) {
+    const p = points[i];
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+    for (let j = i + 1; j < points.length; j++) {
+      const q = points[j];
+      const dx = p.x - q.x;
+      const dy = p.y - q.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 140) {
+        ctx.strokeStyle = `rgba(255,255,255,${1 - dist / 140})`;
+        ctx.lineWidth = .6;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(q.x, q.y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+animate();/* SCROLL REVEAL */
+const sections = document.querySelectorAll("section");
+
+const reveal = () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.classList.add("show");
+
+      // Animate skill bars
+      sec.querySelectorAll(".bar div").forEach(bar => {
+        bar.style.width = bar.getAttribute("style").match(/width:\s*\d+%/)[0].split(":")[1];
+      });
+    }
+  });
+};
+
+window.addEventListener("scroll", reveal);
+reveal();
+
+/* SPIDER WEB MOUSE INTERACTION */
+window.addEventListener("mousemove", e => {
+  points[0].x = e.clientX;
+  points[0].y = e.clientY;
+});
+
+</script>
+</body>
+</html
